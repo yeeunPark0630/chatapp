@@ -36,6 +36,8 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity android:name=".MessageActivity" />
+        <activity android:name=".ResetPasswordActivity"
+            android:parentActivityName=".LoginActivity"></activity>
 
 
     </application>

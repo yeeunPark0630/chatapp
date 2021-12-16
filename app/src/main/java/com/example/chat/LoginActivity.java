@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private EditText mEmail, mPwd;
     private Button loginButton;
+    private TextView resetPassword;
 
 
     @Override
@@ -63,6 +64,15 @@ public class LoginActivity extends AppCompatActivity {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                 LoginActivity.this.startActivity(registerIntent);
                 finish();
+            }
+        });
+
+        // To change the page to the reset the password
+        resetPassword = findViewById(R.id.forgot_password);
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
             }
         });
     }
