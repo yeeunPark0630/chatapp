@@ -5,12 +5,14 @@ public class User {
     private String username;
     private String imageURL;
     private String emailAddress;
+    private String lowercaseUsername;
 
-    public User(String id, String username, String imageURL, String emailAddress) {
+    public User(String id, String username, String imageURL, String emailAddress, String lowercaseUsername) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
         this.emailAddress = emailAddress;
+        this.lowercaseUsername = lowercaseUsername;
     }
 
     public User(){
@@ -32,6 +34,10 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
+    public void setLowerUsername(String lowercaseUsername) {
+        this.lowercaseUsername = lowercaseUsername;
+    }
+
     public String getId() {
         return id;
     }
@@ -46,5 +52,9 @@ public class User {
 
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+    public String getLowerUsername() {
+        return lowercaseUsername;
     }
 }

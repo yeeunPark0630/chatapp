@@ -6,15 +6,12 @@
     android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ProfileFragment">
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="24dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/round_rectangle"
-        android:backgroundTint="@color/background_brown"
-        android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_rectangle"
+            android:layout_marginTop="30dp"
             android:padding="8dp">
 
             <TextView
@@ -46,5 +43,4 @@
                 android:textStyle="bold"></TextView>
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
 </RelativeLayout>

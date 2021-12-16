@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -106,6 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setUsername(strUsername);
                     user.setId(strEmail);
                     user.setEmailAddress(strEmail);
+                    user.setLowerUsername(strUsername.toLowerCase());
+
 
                     mDatabaseRef = FirebaseDatabase.getInstance().getReference("UserAccount").child(userID);
                     HashMap<String, String> hashMap = new HashMap<>();
@@ -113,6 +116,8 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("emailAddress", strEmail);
                     hashMap.put("username", strUsername);
                     hashMap.put("imageURL", "default");
+                    // for searching username regardless lower/capital
+                    hashMap.put("lowercaseUsername", strUsername.toLowerCase());
                     mDatabaseRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
