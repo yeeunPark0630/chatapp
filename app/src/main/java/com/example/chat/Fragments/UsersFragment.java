@@ -54,7 +54,7 @@ public class UsersFragment extends Fragment {
        readUsers();
 
        searchUsers = view.findViewById(R.id.searchUsers);
-       searchUsers.addTextChangedListener(new TextWatcher() {
+       searchUsers.addTextChangedListener(new TextWatcher() { // when the text changed -> event occurs
            @Override
            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -80,11 +80,11 @@ public class UsersFragment extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mUsers.clear();
-                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                mUsers.clear(); // clear the array
+                for (DataSnapshot snapshot1: snapshot.getChildren()){ // loop for all users
                     User user = snapshot1.getValue(User.class);
                     if(!user.getId().equals(firebaseUser.getUid())){
-                        mUsers.add(user);
+                        mUsers.add(user); // add to the array
                     }
                 }
                 userAdapter = new UserAdapter(getContext(), mUsers);
@@ -99,7 +99,7 @@ public class UsersFragment extends Fragment {
 
     }
 
-    // for read the users in the firebase
+    // for reading the users in the firebase
     private void readUsers(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         // get the reference under UserAccount
@@ -108,17 +108,18 @@ public class UsersFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(searchUsers.getText().toString().equals("")) {
+                if(searchUsers.getText().toString().equals("")) { // readuser occurs before searchuser occurs
                     mUsers.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         User user = snapshot1.getValue(User.class);
                         assert user != null;
                         assert firebaseUser != null;
-                        if (!user.getId().equals(firebaseUser.getUid())) {
-                            mUsers.add(user);
+                        if (!user.getId().equals(firebaseUser.getUid())) { // if the read user is not the user
+                            mUsers.add(user); // then add to the array
                         }
                     }
 
+                    // attach adapter
                     userAdapter = new UserAdapter(getContext(), mUsers);
                     recyclerView.setAdapter(userAdapter);
                 }
