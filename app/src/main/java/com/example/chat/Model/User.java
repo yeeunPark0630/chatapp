@@ -34,7 +34,7 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public void setLowerUsername(String lowercaseUsername) {
+    public void setLowercaseUsername(String lowercaseUsername) {
         this.lowercaseUsername = lowercaseUsername;
     }
 
@@ -54,7 +54,7 @@ public class User {
         return emailAddress;
     }
 
-    public String getLowerUsername() {
+    public String getLowercaseUsername() {
         return lowercaseUsername;
     }
 }

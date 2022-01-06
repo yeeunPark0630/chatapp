@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setUsername(strUsername);
                     user.setId(strEmail);
                     user.setEmailAddress(strEmail);
-                    user.setLowerUsername(strUsername.toLowerCase());
+                    user.setLowercaseUsername(strUsername.toLowerCase());
 
 
                     mDatabaseRef = FirebaseDatabase.getInstance().getReference("UserAccount").child(userID);
