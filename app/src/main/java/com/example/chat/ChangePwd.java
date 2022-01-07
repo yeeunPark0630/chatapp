@@ -45,7 +45,6 @@ public class ChangePwd extends AppCompatActivity {
 
         String newPwd2 = confirmPwd.toString();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String emailAddress = user.getEmail();
 
         currentPwd.addTextChangedListener(new TextWatcher() { // update text

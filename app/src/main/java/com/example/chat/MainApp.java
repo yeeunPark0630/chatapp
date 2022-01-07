@@ -64,6 +64,9 @@ public class MainApp extends AppCompatActivity{
                     } else if (item.getItemId() == R.id.navigation_changePassword){ // when the change password is selected
                         startActivity(new Intent(MainApp.this, ChangePwd.class));
                         finish();
+                    } else if (item.getItemId() == R.id.navigation_changeUsername) { // when the change password is selected
+                        startActivity(new Intent(MainApp.this, ChangeUsername.class));
+                        finish();
                     }
 
                     return true;
