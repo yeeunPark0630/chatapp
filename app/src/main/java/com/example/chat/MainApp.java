@@ -13,13 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.chat.Adapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class chatApp extends AppCompatActivity{
+public class MainApp extends AppCompatActivity{
 
 
     ImageButton menuBtn;
@@ -46,19 +47,22 @@ public class chatApp extends AppCompatActivity{
 
 
         // Menu Button
-        menuBtn = findViewById(R.id.back_button);
+        menuBtn = findViewById(R.id.menu_button);
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(chatApp.this, menuBtn);
+                PopupMenu popup = new PopupMenu(MainApp.this, menuBtn);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(item -> {
                     // to sign out
                     if (item.getItemId() == R.id.navigation_logout) {
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(chatApp.this,LoginActivity.class));
+                        startActivity(new Intent(MainApp.this,LoginActivity.class));
+                        finish();
+                    } else if (item.getItemId() == R.id.navigation_changePassword){ // when the change password is selected
+                        startActivity(new Intent(MainApp.this, ChangePwd.class));
                         finish();
                     }
 

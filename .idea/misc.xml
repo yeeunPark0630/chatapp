@@ -12,7 +12,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.15185185185185185" />
         <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.4197916666666667" />
         <entry key="app/src/main/res/drawable/round_rectangle.xml" value="0.22777777777777777" />
-        <entry key="app/src/main/res/layout/activity_chat_app.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.2911458333333333" />
+        <entry key="app/src/main/res/layout/activity_chat_app.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_msg.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.33240997229916897" />

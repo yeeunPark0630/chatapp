@@ -13,13 +13,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
@@ -28,7 +25,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.chat.Model.User;
 import com.example.chat.R;
-import com.example.chat.chatApp;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,7 +44,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,7 +51,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     CircleImageView circleImageView;
-    TextView username;
+    TextView username, emailAddress;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -75,6 +70,7 @@ public class ProfileFragment extends Fragment {
 
        circleImageView = view.findViewById(R.id.profile_image);
        username = view.findViewById(R.id.username);
+       emailAddress = view.findViewById(R.id.email_profile);
 
        storageReference = FirebaseStorage.getInstance().getReference("uploads");
        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -124,6 +120,7 @@ public class ProfileFragment extends Fragment {
 
                 User user = snapshot.getValue(User.class);
                 username.setText(user.getUsername());
+                emailAddress.setText(user.getEmailAddress());
 
                 if(user.getImageURL().equals("default")){
                     circleImageView.setImageResource(R.drawable.ic_baseline_person_24);

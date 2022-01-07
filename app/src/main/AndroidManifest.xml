@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Chat.NoActionBar">
         <activity
-            android:name=".chatApp"
+            android:name=".MainApp"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +42,7 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity android:name=".MessageActivity" />
+        <activity android:name=".ChangePwd" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".ResetPasswordActivity"

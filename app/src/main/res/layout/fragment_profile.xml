@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_rectangle"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:padding="8dp">
 
 
@@ -19,7 +19,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="45dp"
                 android:src="@drawable/ic_baseline_person_24"></de.hdodenhof.circleimageview.CircleImageView>
 
@@ -27,13 +27,23 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_image"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/profile_image"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
                 android:text="username"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/email_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username"
+                android:layout_marginLeft="120dp"
+                android:text="E-mail address"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                ></TextView>
         </RelativeLayout>
 
 </RelativeLayout>

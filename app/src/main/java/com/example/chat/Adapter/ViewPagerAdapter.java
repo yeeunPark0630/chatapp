@@ -1,4 +1,4 @@
-package com.example.chat;
+package com.example.chat.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -119,7 +119,7 @@ public class MessageActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MessageActivity.this,chatApp.class));
+                startActivity(new Intent(MessageActivity.this, MainApp.class));
                 finish();
             }
         });
@@ -141,7 +141,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     // read message
-    private void readMessage(String userid, String friendid, String imgurl){
+    private void readMessage(String userid, String friendid, String imgurl){  
         // get the data from firebase under Chats
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
