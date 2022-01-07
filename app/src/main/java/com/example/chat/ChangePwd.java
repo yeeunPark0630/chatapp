@@ -115,17 +115,17 @@ public class ChangePwd extends AppCompatActivity {
                                         user.updatePassword(newPwd2).addOnCompleteListener(new OnCompleteListener<Void>() { // update the password
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
+                                                if (task.isSuccessful()) { // if successfully updated
                                                     Log.d("Success", "Password updated");
                                                     Toast.makeText(ChangePwd.this, "Password Update Successful!", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(ChangePwd.this, MainApp.class));
-                                                } else {
+                                                } else { // if update failed
                                                     Toast.makeText(ChangePwd.this, "Password Update Fail! Try one more time.", Toast.LENGTH_SHORT).show();
                                                     Log.d("Fail", "Error password not updated");
                                                 }
                                             }
                                         });
-                                    } else {
+                                    } else { // error detected
                                         Toast.makeText(ChangePwd.this, "Current password does not match.", Toast.LENGTH_SHORT).show();
                                         Log.d("Error", "Error auth failed");
                                     }
