@@ -18,11 +18,11 @@ import com.example.chat.Model.User;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter {
+public class UserAdapterForChat extends RecyclerView.Adapter {
     private Context mContext;
     private List<User> mUsers;
 
-    public UserAdapter(Context mContext, List<User> mUsers){
+    public UserAdapterForChat(Context mContext, List<User> mUsers){
         this.mContext= mContext;
         this.mUsers = mUsers;
     }
@@ -30,8 +30,8 @@ public class UserAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_info, parent, false);
-        return new UserAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.user_info_chat, parent, false);
+        return new UserAdapterForChat.ViewHolder(view);
     }
 
     @Override
@@ -44,12 +44,6 @@ public class UserAdapter extends RecyclerView.Adapter {
             holder1.profile_image.setImageResource(R.drawable.ic_baseline_person_24);
         } else {
             Glide.with(mContext).load(user.getImageURL()).into(holder1.profile_image);
-        }
-
-        if(user.getStatusMsg().equals("default")){
-            holder1.statusMsg.setText("");
-        } else {
-            holder1.statusMsg.setText(user.getStatusMsg());
         }
 
         holder1.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +64,11 @@ public class UserAdapter extends RecyclerView.Adapter {
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView username;
         public ImageView profile_image;
-        public TextView statusMsg;
 
         public ViewHolder(View itemView){
             super(itemView);
             username = itemView.findViewById(R.id.username2);
             profile_image = itemView.findViewById(R.id.profile_image);
-            statusMsg = itemView.findViewById(R.id.statusMsg);
         }
     }
 }

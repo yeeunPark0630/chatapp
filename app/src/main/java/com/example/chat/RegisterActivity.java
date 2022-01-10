@@ -108,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setId(strEmail);
                     user.setEmailAddress(strEmail);
                     user.setLowercaseUsername(strUsername.toLowerCase());
+                    user.setStatusMsg("default");
 
 
                     mDatabaseRef = FirebaseDatabase.getInstance().getReference("UserAccount").child(userID);
@@ -118,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("imageURL", "default");
                     // for searching username regardless lower/capital
                     hashMap.put("lowercaseUsername", strUsername.toLowerCase());
+                    hashMap.put("statusMsg", "default");
                     mDatabaseRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

@@ -117,7 +117,7 @@ public class ChangePwd extends AppCompatActivity {
                                                 if (task.isSuccessful()) { // if successfully updated
                                                     Log.d("Success", "Password updated");
                                                     Toast.makeText(ChangePwd.this, "Password Update Successful!", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(ChangePwd.this, MainApp.class));
+                                                    finish();
                                                 } else { // if update failed
                                                     Toast.makeText(ChangePwd.this, "Password Update Fail! Try one more time.", Toast.LENGTH_SHORT).show();
                                                     Log.d("Fail", "Error password not updated");
@@ -137,7 +137,7 @@ public class ChangePwd extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChangePwd.this, MainApp.class));
+                finish();
             }
         });
 

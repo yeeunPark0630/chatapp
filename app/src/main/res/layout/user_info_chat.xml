@@ -24,17 +24,5 @@
         android:textSize="10sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/statusMsg"
-        android:background="@drawable/round_rectangle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="250dp"
-        android:layout_toEndOf="@id/profile_image"
-        android:layout_toRightOf="@+id/profile_image"
-        android:text="status message"
-        android:textSize="10sp"
-        android:textStyle="bold" />
 
 </RelativeLayout>

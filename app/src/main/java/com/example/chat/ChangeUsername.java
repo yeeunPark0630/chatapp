@@ -92,7 +92,8 @@ public class ChangeUsername extends AppCompatActivity {
                 if(isChanged){ // username update is successfully when the username is updated
                     Toast.makeText(ChangeUsername.this, "Username updated successfully!", Toast.LENGTH_SHORT).show();
                     databaseReference.child("username").setValue(username.getText().toString());
-                    startActivity(new Intent(ChangeUsername.this, MainApp.class));
+                    //startActivity(new Intent(ChangeUsername.this, MainApp.class));
+                    finish();
                 } else { // if the username is not updated
                     Toast.makeText(ChangeUsername.this, "Username updates failed!", Toast.LENGTH_SHORT).show();
                 }

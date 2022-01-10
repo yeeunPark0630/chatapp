@@ -60,13 +60,10 @@ public class MainApp extends AppCompatActivity{
                     if (item.getItemId() == R.id.navigation_logout) {
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(MainApp.this,LoginActivity.class));
-                        finish();
                     } else if (item.getItemId() == R.id.navigation_changePassword){ // when the change password is selected
                         startActivity(new Intent(MainApp.this, ChangePwd.class));
-                        finish();
                     } else if (item.getItemId() == R.id.navigation_changeUsername) { // when the change password is selected
                         startActivity(new Intent(MainApp.this, ChangeUsername.class));
-                        finish();
                     }
 
                     return true;

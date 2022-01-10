@@ -15,14 +15,20 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.chat.ChangeUsername;
+import com.example.chat.MainApp;
 import com.example.chat.Model.User;
 import com.example.chat.R;
 import com.google.android.gms.tasks.Continuation;
@@ -52,6 +58,7 @@ public class ProfileFragment extends Fragment {
 
     CircleImageView circleImageView;
     TextView username, emailAddress;
+    EditText statusMsg;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -71,6 +78,8 @@ public class ProfileFragment extends Fragment {
        circleImageView = view.findViewById(R.id.profile_image);
        username = view.findViewById(R.id.username);
        emailAddress = view.findViewById(R.id.email_profile);
+       statusMsg = (EditText) view.findViewById(R.id.profile_statusMsg);
+       statusMsg.setFocusableInTouchMode(true);
 
        storageReference = FirebaseStorage.getInstance().getReference("uploads");
        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -78,11 +87,14 @@ public class ProfileFragment extends Fragment {
 
 
 
+       // when click profile image -> can change the profile image
+        // move to gallery
        circleImageView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) { openImage(); }
        });
 
+       // When gallery is open
        activityResultLauncher = registerForActivityResult
                 (new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                             @Override
@@ -93,7 +105,6 @@ public class ProfileFragment extends Fragment {
                                     if(uploadTask != null && uploadTask.isInProgress()){
                                         Toast.makeText(getContext(), "In progressing", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        //CropImage.activity(imageuri).setGuidelines(CropImageView.Guidelines.ON).start(getActivity());
                                         Intent intent = CropImage.activity(imageuri).setGuidelines(CropImageView.Guidelines.ON)
                                                 .getIntent(getContext());
                                         cropActivityResultLauncher.launch(intent);
@@ -102,6 +113,8 @@ public class ProfileFragment extends Fragment {
                                 }
                             }
                         });
+
+       // when crop image activity detected
        cropActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
            @Override
            public void onActivityResult(ActivityResult result) {
@@ -114,6 +127,7 @@ public class ProfileFragment extends Fragment {
            }
        });
 
+       // everytime visit the fragment
        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -129,6 +143,12 @@ public class ProfileFragment extends Fragment {
 
                 }
 
+                if(user.getStatusMsg().equals("default")){
+                    statusMsg.setText("");
+                } else {
+                    statusMsg.setText(user.getStatusMsg());
+                }
+
             }
 
             @Override
@@ -138,6 +158,24 @@ public class ProfileFragment extends Fragment {
 
 
         });
+
+       username.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(getActivity(), ChangeUsername.class));
+           }
+       });
+
+       statusMsg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+           @Override
+           public void onFocusChange(View v, boolean hasFocus) {
+               if(!hasFocus){
+                   statusMsg.setText(statusMsg.getText().toString());
+                   databaseReference.child("statusMsg").setValue(statusMsg.getText().toString());
+               }
+           }
+       });
+
 
 
 

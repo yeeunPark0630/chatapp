@@ -6,13 +6,15 @@ public class User {
     private String imageURL;
     private String emailAddress;
     private String lowercaseUsername;
+    private String statusMsg;
 
-    public User(String id, String username, String imageURL, String emailAddress, String lowercaseUsername) {
+    public User(String id, String username, String imageURL, String emailAddress, String lowercaseUsername, String statusMsg) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
         this.emailAddress = emailAddress;
         this.lowercaseUsername = lowercaseUsername;
+        this.statusMsg = statusMsg;
     }
 
     public User(){
@@ -38,6 +40,10 @@ public class User {
         this.lowercaseUsername = lowercaseUsername;
     }
 
+    public void setStatusMsg(String statusMsg) {
+        this.statusMsg = statusMsg;
+    }
+
     public String getId() {
         return id;
     }
@@ -56,5 +62,9 @@ public class User {
 
     public String getLowercaseUsername() {
         return lowercaseUsername;
+    }
+
+    public String getStatusMsg() {
+        return statusMsg;
     }
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chat.Adapter.UserAdapter;
+import com.example.chat.Adapter.UserAdapterForChat;
 import com.example.chat.Model.Chat;
 import com.example.chat.Model.User;
 import com.example.chat.R;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class chatFragment extends Fragment {
     private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
+    private UserAdapterForChat userAdapter;
     private List<User> mUsers = new ArrayList<>();;
 
     FirebaseUser firebaseUser;
@@ -43,7 +44,7 @@ public class chatFragment extends Fragment {
        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-       userAdapter = new UserAdapter(getContext(), mUsers);
+       userAdapter = new UserAdapterForChat(getContext(), mUsers);
        recyclerView.setAdapter(userAdapter);
        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
        userList = new ArrayList<>();
@@ -99,7 +100,8 @@ public class chatFragment extends Fragment {
                         }
                     }
                 }
-                userAdapter = new UserAdapter(getContext(), mUsers);
+                userAdapter = new UserAdapterForChat(getContext(), mUsers);
+                userAdapter = new UserAdapterForChat(getContext(), mUsers);
                 recyclerView.setAdapter(userAdapter);
             }
 
