@@ -61,6 +61,7 @@ public class ChangePwd extends AppCompatActivity {
                 curPwd = currentPwd.getText().toString();
             }
         });
+
         newPwd.addTextChangedListener(new TextWatcher() { // update text
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,6 +76,7 @@ public class ChangePwd extends AppCompatActivity {
                 newPwdString =  newPwd.getText().toString();
             }
         });
+
         confirmPwd.addTextChangedListener(new TextWatcher() { // update text
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -89,8 +91,6 @@ public class ChangePwd extends AppCompatActivity {
                 confirmPwdString = confirmPwd.getText().toString();
             }
         });
-
-
 
 
         // Prompt the user to re-provide their sign-in credentials

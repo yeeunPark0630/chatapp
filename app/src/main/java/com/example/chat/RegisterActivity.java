@@ -67,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String strPwd = mEtPwd.getText().toString(); // get password
                 String strUsername = mUsername.getText().toString(); // get username
 
+                // all fields are required
                 if(TextUtils.isEmpty(strEmail) || TextUtils.isEmpty(strPwd) || TextUtils.isEmpty(strUsername)){
                     Toast.makeText(RegisterActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 }
@@ -92,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void signup(String strEmail, String strPwd, String strUsername){
 
+        // sign up with email address and password
         mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -112,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                     mDatabaseRef = FirebaseDatabase.getInstance().getReference("UserAccount").child(userID);
+                    // create hashmap and put value for the users
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("id", userID);
                     hashMap.put("emailAddress", strEmail);
@@ -120,6 +123,8 @@ public class RegisterActivity extends AppCompatActivity {
                     // for searching username regardless lower/capital
                     hashMap.put("lowercaseUsername", strUsername.toLowerCase());
                     hashMap.put("statusMsg", "default");
+
+                    // set hashmap under UserAccount on firebase
                     mDatabaseRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -128,7 +133,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 // back to log in page
                                 new Handler().postDelayed(new Runnable() { // wait for 1 sec to back to login activity
-
                                     @Override
                                     public void run() {
                                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
@@ -140,10 +144,6 @@ public class RegisterActivity extends AppCompatActivity {
                     });
 
                     // mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
-
-
-
-
 
                 } else if (strPwd.length() < 6) { // has length less than 6
                     Toast.makeText(RegisterActivity.this, "More than 6 characters for password is required", Toast.LENGTH_SHORT).show();

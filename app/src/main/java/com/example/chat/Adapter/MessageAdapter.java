@@ -38,10 +38,10 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == MSG_RIGHT){
+        if(viewType == MSG_RIGHT){ // sender
             View view = LayoutInflater.from(mContext).inflate(R.layout.chat_right, parent, false);
             return new MessageAdapter.ViewHolder(view);
-        } else {
+        } else { // receiver
             View view = LayoutInflater.from(mContext).inflate(R.layout.chat_left, parent, false);
             return new MessageAdapter.ViewHolder(view);
         }
@@ -49,6 +49,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // show message and profile image
        Chat chat = mChats.get(position);
        MessageAdapter.ViewHolder holder1 = (MessageAdapter.ViewHolder) holder;
        holder1.message.setText(chat.getMessage());

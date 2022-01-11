@@ -40,6 +40,7 @@ public class MessageActivity extends AppCompatActivity {
     ImageButton btn_send, btn_back;
     EditText send_text;
 
+    // Adapter
     MessageAdapter messageAdapter;
     List<Chat> mchat = new ArrayList<>();
 
@@ -51,12 +52,14 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg);
 
+        // recycler view for show the messages in the view
         recyclerView =  (RecyclerView) findViewById(R.id.recycler_view2);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        // create chat array
         mchat = new ArrayList<>();
         messageAdapter = new MessageAdapter(MessageActivity.this, mchat, "defualt");
         recyclerView.setAdapter(messageAdapter);
@@ -73,21 +76,22 @@ public class MessageActivity extends AppCompatActivity {
 
         // get the user from firebase
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // get firebase reference of userid
         reference = FirebaseDatabase.getInstance().getReference("UserAccount").child(userid);
 
-        // set profile image
+        // set profile image and username
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-
                 username.setText(user.getUsername());
                 if(user.getImageURL().equals("default")){
                     profile_img.setImageResource(R.drawable.ic_baseline_person_24);
                 } else {
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_img);
                 }
-                // read message
+
+                // read message from firebase cloud
                 readMessage(firebaseUser.getUid(), userid, user.getImageURL());
             }
 
@@ -101,25 +105,28 @@ public class MessageActivity extends AppCompatActivity {
         btn_send = findViewById(R.id.btn_send);
         send_text = findViewById(R.id.send_text);
 
+        // send button clicked
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = send_text.getText().toString();
-                if(!msg.equals("")){
+                String msg = send_text.getText().toString(); // get the text from send_text edittext
+                if(!msg.equals("")){ // message box is not empty
                     sendMessage(firebaseUser.getUid(), userid, msg);
-                } else {
+                } else { // if message box is empty
                     Toast.makeText(MessageActivity.this, "You cannot send empty message!", Toast.LENGTH_SHORT).show();
                 }
-                // initialize send text
+                // initialize send text for next
                 send_text.setText("");
             }
         });
 
+        // back button clicked
         btn_back = findViewById(R.id.back_button);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MessageActivity.this, MainApp.class));
+                // when back button is clicked -> move to previous page
+                //startActivity(new Intent(MessageActivity.this, MainApp.class));
                 finish();
             }
         });
@@ -142,23 +149,22 @@ public class MessageActivity extends AppCompatActivity {
 
     // read message
     private void readMessage(String userid, String friendid, String imgurl){  
-        // get the data from firebase under Chats
+        // get the data from firebase under Chats for reading messages
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // clear previous mchat array
                 mchat.clear();
                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
                     Chat chat = snapshot1.getValue(Chat.class);
-                    // if the receiver and sender of the data from firebase are equal, add chat to mchat
+                    // if the receiver and sender of the data from firebase are equal, add chat to mchat array
                     if(chat.getReceiver().equals(userid) && chat.getSender().equals(friendid) ||
                             chat.getReceiver().equals(friendid) && chat.getSender().equals(userid)){
                         mchat.add(chat);
                     }
 
-
-
-                    // attach adapter
+                    // attach adapter with mchat array and profile image
                     messageAdapter = new MessageAdapter(MessageActivity.this, mchat, imgurl);
                     recyclerView.setAdapter(messageAdapter);
                     messageAdapter.notifyDataSetChanged();

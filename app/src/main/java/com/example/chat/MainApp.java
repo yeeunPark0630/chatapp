@@ -76,8 +76,6 @@ public class MainApp extends AppCompatActivity{
         setTabLayout();
 
 
-
-
     }
 
     public void setTabLayout(){
@@ -86,6 +84,7 @@ public class MainApp extends AppCompatActivity{
         viewPagerAdapter = new ViewPagerAdapter(fm, getLifecycle());
         viewPager.setAdapter(viewPagerAdapter);
 
+        // add 3 tabs
         tabLayout.addTab(tabLayout.newTab().setText("Users"));
         tabLayout.addTab(tabLayout.newTab().setText("Chats"));
         tabLayout.addTab(tabLayout.newTab().setText("Profile"));

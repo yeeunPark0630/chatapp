@@ -38,20 +38,24 @@ public class UserAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         User user = mUsers.get(position);
         ViewHolder holder1 = (ViewHolder) holder;
+        // set username
         holder1.username.setText(user.getUsername());
 
+        // set profile image
         if(user.getImageURL().equals("default")){
             holder1.profile_image.setImageResource(R.drawable.ic_baseline_person_24);
         } else {
             Glide.with(mContext).load(user.getImageURL()).into(holder1.profile_image);
         }
 
+        // set status message
         if(user.getStatusMsg().equals("default")){
             holder1.statusMsg.setText("");
         } else {
             holder1.statusMsg.setText(user.getStatusMsg());
         }
 
+        // if user profile is clicked, move to chat activity
         holder1.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -105,6 +105,7 @@ public class ProfileFragment extends Fragment {
                                     if(uploadTask != null && uploadTask.isInProgress()){
                                         Toast.makeText(getContext(), "In progressing", Toast.LENGTH_SHORT).show();
                                     } else {
+                                        // crop activity start
                                         Intent intent = CropImage.activity(imageuri).setGuidelines(CropImageView.Guidelines.ON)
                                                 .getIntent(getContext());
                                         cropActivityResultLauncher.launch(intent);
@@ -121,7 +122,7 @@ public class ProfileFragment extends Fragment {
                Intent data = result.getData();
                if( result.getResultCode() == RESULT_OK){
                     CropImage.ActivityResult cropresult = CropImage.getActivityResult(data);
-                    imageuri = cropresult.getUri();
+                    imageuri = cropresult.getUri(); // update imageuri after crop the image
                     uploadImage();
                }
            }
@@ -133,9 +134,11 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 User user = snapshot.getValue(User.class);
+                // show username and email address
                 username.setText(user.getUsername());
                 emailAddress.setText(user.getEmailAddress());
 
+                // show profile message
                 if(user.getImageURL().equals("default")){
                     circleImageView.setImageResource(R.drawable.ic_baseline_person_24);
                 } else {
@@ -143,6 +146,7 @@ public class ProfileFragment extends Fragment {
 
                 }
 
+                // show status message
                 if(user.getStatusMsg().equals("default")){
                     statusMsg.setText("");
                 } else {
@@ -159,6 +163,7 @@ public class ProfileFragment extends Fragment {
 
         });
 
+       // for changing username
        username.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -166,6 +171,7 @@ public class ProfileFragment extends Fragment {
            }
        });
 
+       // for changing status message
        statusMsg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
            public void onFocusChange(View v, boolean hasFocus) {
@@ -176,13 +182,10 @@ public class ProfileFragment extends Fragment {
            }
        });
 
-
-
-
        return view;
     }
 
-
+    // open gallery
     private void openImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -196,14 +199,16 @@ public class ProfileFragment extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    // To upload image
     private  void uploadImage(){
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Uploading");
         progressDialog.show();
+
         // upload to firebase
         if(imageuri != null){
             final StorageReference storageReference2 = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageuri));
-            uploadTask = storageReference2.putFile(imageuri);
+            uploadTask = storageReference2.putFile(imageuri); // put image uri
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -216,11 +221,11 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) { // if it successful
                     if(task.isSuccessful()){
-                        Uri downloadUri = task.getResult();
+                        Uri downloadUri = task.getResult(); // get uri from task
                         String sUri = downloadUri.toString();
                         HashMap<String, Object> hashMap = new HashMap<>(); // upload to firebase by using hashmap
                         hashMap.put("imageURL", sUri);
-                        databaseReference.updateChildren(hashMap);
+                        databaseReference.updateChildren(hashMap); // update uri
                         progressDialog.dismiss(); // after upload to firebase, dismiss the progress dialog
                     } else {
                         Toast.makeText(getContext(), "Failed to upload", Toast.LENGTH_SHORT).show();

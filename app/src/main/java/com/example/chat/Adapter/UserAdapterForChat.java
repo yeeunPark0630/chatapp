@@ -38,14 +38,17 @@ public class UserAdapterForChat extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         User user = mUsers.get(position);
         ViewHolder holder1 = (ViewHolder) holder;
+        // set username
         holder1.username.setText(user.getUsername());
 
+        // set profile image
         if(user.getImageURL().equals("default")){
             holder1.profile_image.setImageResource(R.drawable.ic_baseline_person_24);
         } else {
             Glide.with(mContext).load(user.getImageURL()).into(holder1.profile_image);
         }
 
+        // when click user adapter, move to chat room
         holder1.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

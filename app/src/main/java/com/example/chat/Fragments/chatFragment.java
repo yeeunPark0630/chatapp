@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// CHATS fragment
 public class chatFragment extends Fragment {
     private RecyclerView recyclerView;
     private UserAdapterForChat userAdapter;
@@ -41,11 +41,15 @@ public class chatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+
        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+       // set user adapter for chat
        userAdapter = new UserAdapterForChat(getContext(), mUsers);
        recyclerView.setAdapter(userAdapter);
+
        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
        userList = new ArrayList<>();
 
@@ -53,19 +57,24 @@ public class chatFragment extends Fragment {
        reference.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               // clear previous user list
                userList.clear();
 
                for(DataSnapshot snapshot1: snapshot.getChildren()){
                    Chat chat = snapshot1.getValue(Chat.class);
+
+                   // if I'm the one who is sender, add receiver to the list
                    if(chat.getSender().equals(firebaseUser.getUid())){
                        userList.add(chat.getReceiver());
                    }
 
+                   // if I'm the one who is receiver, add sender to the list
                    if(chat.getReceiver().equals(firebaseUser.getUid())){
                        userList.add(chat.getSender());
                    }
                }
-               readChats();
+               // read user
+               readUsers();
            }
 
            @Override
@@ -77,30 +86,30 @@ public class chatFragment extends Fragment {
     }
 
     // Display user at chat
-    private void readChats(){
+    private void readUsers(){
         reference = FirebaseDatabase.getInstance().getReference("UserAccount");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // clear user array
                 mUsers.clear();
                 for(DataSnapshot snapshot1:snapshot.getChildren()){
                     User user = snapshot1.getValue(User.class);
-
-                    for(String id: userList){
-                        if(user.getId().equals(id)){
+                    for(String id: userList){ // check for every user list
+                        if(user.getId().equals(id)){ // id in userlist is me (user)
                             if(mUsers.size() != 0){
                                 for(User user1: mUsers){
-                                    if(!user.getId().equals(user1.getId())){
-                                        mUsers.add(user);
+                                    if(!user.getId().equals(user1.getId())){ // user id is not equal to id in mUser array
+                                        mUsers.add(user); // add user in the muser array
                                     }
                                 }
-                            } else {
-                                mUsers.add(user);
+                            } else { // id in userlist is friends
+                                mUsers.add(user); // add user in the muser array
                             }
                         }
                     }
                 }
-                userAdapter = new UserAdapterForChat(getContext(), mUsers);
+               // userAdapter = new UserAdapterForChat(getContext(), mUsers);
                 userAdapter = new UserAdapterForChat(getContext(), mUsers);
                 recyclerView.setAdapter(userAdapter);
             }

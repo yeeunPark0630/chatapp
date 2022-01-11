@@ -47,11 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
-        } /*else {
-            // User is signed out
-            Toast.makeText(LoginActivity.this, "Sign out", Toast.LENGTH_SHORT).show();
-        }*/
-
+        }
         Login();
 
         // To change the page to the register page
@@ -78,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
     // to login
     private void Login(){
 
-
         loginButton = findViewById(R.id.LoginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +82,12 @@ public class LoginActivity extends AppCompatActivity {
                 String strEmail = mEmail.getText().toString();
                 String strPwd = mPwd.getText().toString();
 
-                if(TextUtils.isEmpty(strEmail)){
+                if(TextUtils.isEmpty(strEmail)){ // if email address is missed, show the message
                     Toast.makeText(LoginActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
-                } else if(TextUtils.isEmpty(strPwd)){
+                } else if(TextUtils.isEmpty(strPwd)){// if password is missed, show the message
                     Toast.makeText(LoginActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
                 } else {
+                    // log in
                     mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {

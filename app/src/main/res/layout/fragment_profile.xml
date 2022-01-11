@@ -32,6 +32,7 @@
                 android:text="username"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:background="@null"
                 ></EditText>
 
             <TextView
