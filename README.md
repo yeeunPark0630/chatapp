@@ -8,6 +8,11 @@
 5. [Installation](#installation)
 6. [Features](#features) 
 7. [How to use?](#how-to-use)
+   * Sign up
+   * Log in
+   * USER Fragment
+   * CHATS Fragment
+   * PROFILE Fragment
 
 
 # General Information
