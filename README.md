@@ -6,7 +6,8 @@
 3. [Screenshots](#screenshots)
 4. [Technologies](#technologies)
 5. [Installation](#installation)
-6. [How to use?](#how-to-use)
+6. [Features](#features) 
+7. [How to use?](#how-to-use)
 
 
 # General Information
@@ -19,13 +20,13 @@ Android 11.0(R) API level 30 is required to run this application.
 
 # Screenshots
 
-In USER fragment, users can see other users.
+In USER fragment, users can see other users. \
 ![user view](ReadmeSource/Userlist.png)
 
 In CHAT fragment, there are list of the chat rooms. \
 ![chat view](ReadmeSource/chatlist.png)
 
-Users can send and receive messages between them. \
+Users can send and receive messages between them. <br />
 
 ![chatroom view](ReadmeSource/chatroom.png)
 
