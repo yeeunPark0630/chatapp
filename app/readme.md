@@ -1,1 +1,0 @@
-Chat icon from freeicon.io by Muhammad Haq

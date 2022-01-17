@@ -98,9 +98,11 @@ public class chatFragment extends Fragment {
                     for(String id: userList){ // check for every user list
                         if(user.getId().equals(id)){ // id in userlist is me (user)
                             if(mUsers.size() != 0){
-                                for(User user1: mUsers){
+                                for(User user1: new ArrayList< User >(mUsers)){
                                     if(!user.getId().equals(user1.getId())){ // user id is not equal to id in mUser array
                                         mUsers.add(user); // add user in the muser array
+                                    } else {
+                                        mUsers.remove(user);
                                     }
                                 }
                             } else { // id in userlist is friends
